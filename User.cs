@@ -6,7 +6,7 @@ public class User
     public string Name { get; set; }
     public string Surname { get; set; }
     public string Fiscalcode { get; set; }
-    public int Salary { get; }
+    public int Salary { get; set; }
 
     public User(string name, string surname, string fiscalcode, int salary)
     {

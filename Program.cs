@@ -8,126 +8,71 @@ Console.WriteLine("Hello, World!");
 
 Bank dudiBank = new Bank("Dudi Bank");
 
-public class Bank{
-    public string Name { get; set; }
+Console.WriteLine($"Benvenuto a {dudiBank.Name}");
 
-    public List<User> Users { get; set; }
+Console.WriteLine("Azioni sugli utenti [1], Azioni sui prestiti[2]");
+string input1 = Console.ReadLine().ToLower();
 
-    public List<Loan> Loans { get; set; }
-
-    public Bank(string name)
-    {
-        Users = new List<User>();
-        Loans = new List<Loan>();
-        Name = name;
-
-        Users.Add(new User("Ugo", "Deughi", "UGODUG88P45A960P", 45000));
-        Users.Add(new User("Sara", "Desari", "DUSDUI88P45A960U", 47000));
-
-        Loans.Add(new Loan("UGODUG88P45A960P", 25000, 300, "12/07/21", "12/07/27"));
-        Loans.Add(new Loan("UGODUG88P45A960P", 5000, 200, "10/12/21", "10/12/23"));
-        Loans.Add(new Loan("DUSDUD88P45A960U", 5000, 190, "1/02/21", "01/03/23"));
-
-    }
-
-    //funzione di creazione e aggiunta nuovo utente alla lista 
-    public string SetNewUser(string name, string surname, string fiscalcode, int salary)
-    {
-        Users.Add(new User(name, surname, fiscalcode, salary));
-
-        return "Utente aggiunto con successo";
-    }
-
-    //funzione modifica utente
-    public string SetModifyUser(User userObject)
-    {
-        string response = "utente non trovato";
-        for(int i= 0; i< Users.Count; i++)
-        {
-            if (Users[i].Fiscalcode.Contains(userObject.Fiscalcode))
-            {
-                Users[i] = userObject;
-                response = User.GetUserData(Users[i]);
-                break;
-            }
-        }
-        return response;
-    }
-
-    //funzione di ricerca utente
-    public string FindUser(string userFiscalCode)
-    {
-        string response = "utente non trovato";
-        foreach(User user in Users)
-        {
-            if (user.Fiscalcode.Contains(userFiscalCode))
-            {
-                response = User.GetUserData(user);
-                break;
-            }
-        }
-        return response;
-    }
-
-    //ricerca di uno specifico prestito
-    public string FindLoan(string userFiscalCode)
-    {
-        string response = "Nessun prestito trovato";
-
-        foreach(Loan loan in Loans)
-        {
-            if (loan.UserFiscalCode.Contains(userFiscalCode))
-            {
-                response = Loan.GetLoanData(loan);
-                break;
-            }
-        }
-        return response;
-    }
-
-    // funzione che ritorna i prestiti dell'utente
-    public List<Loan> GetAmmountUserLoan(string userFiscalCode)
-    {
-        List<Loan> userLoans = new List<Loan>(); 
-        foreach(Loan loan in Loans)
-        {
-            if (loan.UserFiscalCode.Contains(userFiscalCode))
-            {
-                userLoans.Add(loan);
-            }
-        }
-        return userLoans;
-    }
-
-    // funzione che ritorna il totale dei prestiti dell'utente
-    public static int GetLoanAmmonut(List<Loan> loanList)
-    {
-        int loanAmmount = 0;
-        foreach(Loan loan in loanList)
-        {
-            loanAmmount+= loan.Ammount;
-        }
-
-        return (int)loanAmmount;
-    }
-
-    //funzione che ritorna il totale delle rate da pagare per un prestito
-    public int GetPaymentNum(int loanID)
-    {
-        int paymentNum = 0;
-
-        foreach(Loan loan in Loans)
-        {
-            if (loan.LoanID.Equals(loanID))
-            {
-                //momentaneo calcolatore faker dell'ammount.
-                paymentNum = (loan.Ammount / loan.MonthlyPayment) - (loan.MonthlyPayment - 3);
-               //per sapere quante rate, devo avere il totale, diviso l'ammount della rata e qunte rate sono passate
-               // contare da li quanti mesi sono passati...
-            }
-        }
-        return paymentNum;
-    }
+while(input1 != "1" || input1 != "2")
+{
+    Console.WriteLine("Azioni sugli utenti [1], Azioni sui prestiti[2]");
+    input1 = Console.ReadLine().ToLower();
 }
 
+if (input1.Contains("1"))
+{
+    Console.WriteLine("Cercare utente[1], Modificare utente[2], Aggiungere nuovo uetnte[3]");
+    string input2 = Console.ReadLine().ToLower();
+    while (input2 != "1" || input2 != "2"|| input2 != "3"){
+        Console.WriteLine("Cercare utente[1], Modificare utente[2], Aggiungere nuovo uetnte[3]");
+        input2 = Console.ReadLine().ToLower();
+    }
+    userAction(input2);
 
+
+}
+else if (input1.Contains("2"))
+{
+    Console.WriteLine("Cercare prestito[1], Creare nuovo prestito[2]");
+    string input2 = Console.ReadLine().ToLower();
+}
+
+void userAction(string userInput)
+{
+    if (userInput.Contains("1"))
+    {
+        Console.WriteLine("Inserisci il codice fiscale dell'utente");
+        string userFiscalCode = Console.ReadLine().ToLower();
+        string response = dudiBank.FindUser(userFiscalCode);
+        Console.WriteLine(response);
+    }
+    else if (userInput.Contains("2"))
+    {
+        string[] data = { "Name", "Surname", "Fiscalcode", "Salary" };
+        List<string> list = new List<string>();
+        Console.WriteLine("Inserisci il codice fiscale dell'utente");
+        string userFiscalCode = Console.ReadLine().ToLower();
+        foreach(string item in data)
+        {
+            Console.WriteLine($"Vuoi modificare {item} ? [y/n]");
+            string r = Console.ReadLine().ToLower();
+            while(r != "y" || r != "n")
+            {
+                Console.WriteLine($"Vuoi modificare {item} ? [y/n]");
+                r = Console.ReadLine().ToLower();
+            }
+            if (r.Contains("y"))
+            {
+                Console.WriteLine($"Inserisci il nuovo {item}");
+                string newData = Console.ReadLine().ToLower();
+                list.Add(newData);
+            }
+            else
+            {
+                list.Add("same");
+            }
+        }
+        dudiBank.SetModifyUser(list, userFiscalCode);
+
+    }
+}
