@@ -1,4 +1,5 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using System.Diagnostics;
 using System.Globalization;
 
 Console.WriteLine("Hello, World!");
@@ -68,6 +69,7 @@ public class Bank{
         return response;
     }
 
+    //ricerca di uno specifico prestito
     public string FindLoan(string userFiscalCode)
     {
         string response = "Nessun prestito trovato";
@@ -83,9 +85,48 @@ public class Bank{
         return response;
     }
 
-    public int GetAmmountUserLoan(string userFiscalCode)
+    // funzione che ritorna i prestiti dell'utente
+    public List<Loan> GetAmmountUserLoan(string userFiscalCode)
     {
+        List<Loan> userLoans = new List<Loan>(); 
+        foreach(Loan loan in Loans)
+        {
+            if (loan.UserFiscalCode.Contains(userFiscalCode))
+            {
+                userLoans.Add(loan);
+            }
+        }
+        return userLoans;
+    }
 
+    // funzione che ritorna il totale dei prestiti dell'utente
+    public static int GetLoanAmmonut(List<Loan> loanList)
+    {
+        int loanAmmount = 0;
+        foreach(Loan loan in loanList)
+        {
+            loanAmmount+= loan.Ammount;
+        }
+
+        return (int)loanAmmount;
+    }
+
+    //funzione che ritorna il totale delle rate da pagare per un prestito
+    public int GetPaymentNum(int loanID)
+    {
+        int paymentNum = 0;
+
+        foreach(Loan loan in Loans)
+        {
+            if (loan.LoanID.Equals(loanID))
+            {
+                //momentaneo calcolatore faker dell'ammount.
+                paymentNum = (loan.Ammount / loan.MonthlyPayment) - (loan.MonthlyPayment - 3);
+               //per sapere quante rate, devo avere il totale, diviso l'ammount della rata e qunte rate sono passate
+               // contare da li quanti mesi sono passati...
+            }
+        }
+        return paymentNum;
     }
 }
 

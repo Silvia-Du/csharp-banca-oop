@@ -4,7 +4,9 @@
 
 public class Loan
 {
-    public static int ID { get; set; }
+    public static int ID = 0;
+
+    public int LoanID { get; }
     public string UserFiscalCode { get; set; }
     public int Ammount { get; set; }
     public int MonthlyPayment { get; set; }
@@ -17,6 +19,7 @@ public class Loan
 
     public Loan(string userFiscalCode, int ammount, int monthlyPayment, string startDate, string endDate)
     {
+        LoanID = ID ++;
         UserFiscalCode = userFiscalCode;
         Ammount = ammount;
         MonthlyPayment = monthlyPayment;
