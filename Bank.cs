@@ -17,7 +17,7 @@ public class Bank{
 
         Loans.Add(new Loan("UGODUG88P45A960P", 25000, 300, "12/07/21", "12/07/27"));
         Loans.Add(new Loan("UGODUG88P45A960P", 5000, 200, "10/12/21", "10/12/23"));
-        Loans.Add(new Loan("DUSDUD88P45A960U", 5000, 190, "1/02/21", "01/03/23"));
+        Loans.Add(new Loan("DUSDUI88P45A960U", 5000, 190, "1/02/21", "01/03/23"));
 
     }
 

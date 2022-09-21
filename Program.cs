@@ -8,42 +8,51 @@ Console.WriteLine("Hello, World!");
 Bank dudiBank = new Bank("Dudi Bank");
 
 Console.WriteLine($"Benvenuto a {dudiBank.Name}");
+startApplication();
 
-
-Console.WriteLine("Azioni sugli utenti [1], Azioni sui prestiti[2]");
-string input1 = Console.ReadLine().ToLower();
-
-while(input1 != "1" && input1 != "2")
+void startApplication()
 {
-    Console.WriteLine("Azioni sugli utenti [1], Azioni sui prestiti[2]");
-    input1 = Console.ReadLine().ToLower();
-}
 
-if (input1.Contains("1"))
-{
-    Console.WriteLine("Cercare utente[1], Modificare utente[2], Aggiungere nuovo uetnte[3]");
-    string input2 = Console.ReadLine().ToLower();
-    while (input2 != "1" && input2 != "2" && input2 != "3"){
-        Console.WriteLine("Cercare utente[1], Modificare utente[2], Aggiungere nuovo uetnte[3]");
-        input2 = Console.ReadLine().ToLower();
+    Console.WriteLine("Azioni sugli utenti [1], Azioni sui prestiti[2], Esci dall'applicazione[3]");
+    string input1 = Console.ReadLine().ToLower();
+
+    while(input1 != "1" && input1 != "2" && input1 != "3")
+    {
+        Console.WriteLine("Azioni sugli utenti [1], Azioni sui prestiti[2]");
+        input1 = Console.ReadLine().ToLower();
     }
-    //qui richiamo la funzione di gestione users
-    userAction(input2);
 
-
-}
-else if (input1.Contains("2"))
-{
-    Console.WriteLine("Cercare prestito[1], Creare nuovo prestito[2]");
-    string input2 = Console.ReadLine().ToLower();
-    while (input2 != "1" && input2 != "2")
+    if (input1.Contains("1"))
     {
         Console.WriteLine("Cercare utente[1], Modificare utente[2], Aggiungere nuovo uetnte[3]");
-        input2 = Console.ReadLine().ToLower();
-    }
+        string input2 = Console.ReadLine().ToLower();
+        while (input2 != "1" && input2 != "2" && input2 != "3"){
+            Console.WriteLine("Cercare utente[1], Modificare utente[2], Aggiungere nuovo uetnte[3]");
+            input2 = Console.ReadLine().ToLower();
+        }
+        //qui richiamo la funzione di gestione users
+        userAction(input2);
 
-    loanAction(input2);
+
+    }
+    else if (input1.Contains("2"))
+    {
+        Console.WriteLine("Cercare prestito[1], Creare nuovo prestito[2]");
+        string input2 = Console.ReadLine().ToLower();
+        while (input2 != "1" && input2 != "2")
+        {
+            Console.WriteLine("Cercare utente[1], Modificare utente[2], Aggiungere nuovo uetnte[3]");
+            input2 = Console.ReadLine().ToLower();
+        }
+
+        loanAction(input2);
+    }
+    else
+    {
+        Console.WriteLine("Grazie per aver utilizzato dudiBank service!");
+    }
 }
+
 
 
 //FUNZIONE DI GESTIONE UTENTE
@@ -55,6 +64,7 @@ void userAction(string userInput)
         string userFiscalCode = Console.ReadLine();
         string response = dudiBank.FindUser(userFiscalCode);
         Console.WriteLine(response);
+        restartOption();
     }
     else if (userInput.Contains("2"))
     {
@@ -84,6 +94,8 @@ void userAction(string userInput)
         }
         string output = dudiBank.SetModifyUser(list, userFiscalCode);
         Console.WriteLine(output);
+        restartOption();
+
 
     }
     else if (userInput.Contains("3"))
@@ -98,6 +110,7 @@ void userAction(string userInput)
         int salary = Convert.ToInt32(Console.ReadLine());
         string response = dudiBank.SetNewUser(name, surname, fiscalcode, salary);
         Console.WriteLine(response);
+        restartOption();
     }
 }
 
@@ -127,13 +140,35 @@ void loanAction(string userInput)
                 Console.WriteLine("Totale rate rimaneti");
                 Console.WriteLine(dudiBank.GetPaymentNum(loan.LoanID));
             }
+            restartOption();
         }
         else if(moreInfo.Contains("n"))
         {
             Console.WriteLine("Ecco i primi dati relativi ai prestiti di questo utente");
             string response = dudiBank.FindLoan(userFiscalCode);
             Console.WriteLine(response);
+            restartOption();
         }
 
+    }
+}
+
+//recall action 
+void restartOption()
+{
+    Console.WriteLine("Vuoi eseguire altre operazioni?[y / n]");
+    string response = Console.ReadLine().ToLower();
+    while (response != "y" && response != "n")
+    {
+        Console.WriteLine("Vuoi eseguire altre operazioni?[y / n]");
+        response = Console.ReadLine().ToLower();
+    }
+    if (response.Contains("y"))
+    {
+        startApplication();
+    }
+    else
+    {
+        Console.WriteLine("Grazie per aver utilizzato dudiBank service!");
     }
 }
