@@ -25,25 +25,24 @@ public class Bank{
     public string SetNewUser(string name, string surname, string fiscalcode, int salary)
     {
         Users.Add(new User(name, surname, fiscalcode, salary));
-
-        return "Utente aggiunto con successo";
+        return $"Utente aggiunto con successo";
+        //implementare con aggiunta stampa in pagina dei dati nuovo utente
     }
 
     //funzione modifica utente
     public string SetModifyUser(List<string> newData, string userFiscalCode)
     {
-        int p = GetUser(userFiscalCode);
-        int newSalary = newData[3].
         string response = "utente non trovato";
-
-        Users[p].Name = newData[0] != "same"? newData[0]: Users[p].Name;
-        Users[p].Surname = newData[1] != "same" ? newData[1] : Users[p].Surname;
-        Users[p].Fiscalcode = newData[2] != "same" ? newData[2] : Users[p].Fiscalcode;
-        Users[p].Salary = newData[3] != "same" ? newData[3] : Users[p].Salary;
-
-
-
-
+        int p = GetUser(userFiscalCode);
+        if (p != -1)
+        {
+            Users[p].Name = newData[0] != "same" ? newData[0] : Users[p].Name;
+            Users[p].Surname = newData[1] != "same" ? newData[1] : Users[p].Surname;
+            Users[p].Fiscalcode = newData[2] != "same" ? newData[2] : Users[p].Fiscalcode;
+            Users[p].Salary = newData[3] != "same" ? Convert.ToInt32(newData[3]) : Users[p].Salary;
+            response = User.GetUserData(Users[p]);
+        }
+       
         return response;
     }
 
@@ -72,8 +71,8 @@ public class Bank{
         {
             if (Users[i].Fiscalcode.Contains(userFiscalCode))
             {
-                position = i - 1;
-                response = position;
+                ;
+                response = i;
                 break;
             }
         }

@@ -10,17 +10,17 @@ public class User
 
     public User(string name, string surname, string fiscalcode, int salary)
     {
-        Name = name;
-        Surname = surname;
+        Name = name.ToLower();
+        Surname = surname.ToLower();
         Fiscalcode = fiscalcode;
         Salary = salary;
     }
 
     public static string GetUserData(User userObject)
     {
-        return $"Nome utente: {userObject.Name}" +
-            $"Cognome utente: {userObject.Surname};" +
-            $"Codice fiscale: {userObject.Fiscalcode};" +
-            $"Salario annuale lordo: {userObject.Salary}";
+        return $" Nome utente: {userObject.Name}; " +
+            $"Cognome utente: {userObject.Surname}; " +
+            $"Codice fiscale: {userObject.Fiscalcode}; " +
+            $"Salario annuale lordo: {userObject.Salary} ";
     }
 }
