@@ -8,6 +8,18 @@ Console.WriteLine("Hello, World!");
 Bank dudiBank = new Bank("Dudi Bank");
 
 Console.WriteLine($"Benvenuto a {dudiBank.Name}");
+
+Loan newLoan = new Loan("DUSDUI88P45A960A", 5000, 190, "1/02/21", "01/03/23");
+string[] startDate = newLoan.StartDate.Split('/');
+string[] endDate = newLoan.EndDate.Split('/');
+//int year = endDate[]
+foreach (string date in startDate)
+{
+    int num = Convert.ToInt32(date);
+    Console.WriteLine(num.GetType());
+    
+}
+//Console.WriteLine(startDate);
 startApplication();
 
 void startApplication()
